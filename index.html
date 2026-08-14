@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Searching for a Value</title>
+</head>
+<body>
+    <h1>Add a Value</h1>
+    <input type="text" id="inputValue">
+    <button onClick="addValue()">Save</button>
+
+    <hr>
+    <h1>Search for Input</h1>
+
+    <input type="text" id="searchInput">
+    <button onClick="searchValue()">Search</button>
+
+    <hr>
+    <h3>Result here</h3>
+    <div id="result"></div>
+
+    <script>
+        class Node{
+            constructor(data){
+                this.data = data;
+                this.next = null;
+            }
+        }
+
+        class LinkedList {
+            constructor(){
+                this.head = null
+            }
+
+            add(data){
+                let newNode = new Node(data);
+                if (this.head === null){
+                    this.head = newNode;
+                }else{
+                    let current = this.head;
+                    while (current.next !== null) {
+                        current = current.next;
+                    }
+
+                    current.next = newNode;
+                }
+            }
+            
+            search(value) {
+                let current = this.head;
+                let index = 0
+
+                while (current !== null) {
+                    if (current.data === value){
+                        return "Value " + value +
+                        " found at index " + index;
+                    }
+
+                    current = current.next;
+                    index++;
+                }
+                return "Value " + value +
+                " it does not exist. ";
+            }
+        }
+
+        let list = new LinkedList();
+
+        function addValue() {
+            let input = document.getElementById("inputValue");
+            let value = input.value;
+
+            if (value === "") {
+                alert("Enter a Value.");
+                return;
+            }
+
+            list.add(value);
+            input.value = "";
+            input.focus();
+        }
+
+        function searchValue() {
+            let input = document.getElementById("searchInput");
+            let value = input.value;
+
+            if (value === "") {
+                alert("Enter a Value to search.");
+                return;
+            }
+
+            let result = list.search(value);
+            document.getElementById("result").innerHTML = result
+        }
+
+    </script>
+</body>
+</html>
+
